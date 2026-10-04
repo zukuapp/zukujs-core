@@ -1,7 +1,7 @@
-import { parseCommand, safeDiagnostic, type ParsedCommand } from '@zukujs/core';
-import { commandHelp } from '@zukujs/core/command';
-import { readableTrace } from '@zukujs/core/diagnostics';
-import identity from '@zukujs/core/client-version.json' with { type: 'json' };
+import { parseCommand, safeDiagnostic, type ParsedCommand } from '@zuku/core';
+import { commandHelp } from '@zuku/core/command';
+import { readableTrace } from '@zuku/core/diagnostics';
+import identity from '@zuku/core/client-version.json' with { type: 'json' };
 
 const command: ParsedCommand = parseCommand('go("jump")');
 const message: string = safeDiagnostic(command);

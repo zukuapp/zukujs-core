@@ -9,16 +9,16 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 test('Node ESM consumer resolves every declared package export from dist only', () => {
   const directory = mkdtempSync(join(tmpdir(), 'zuku-core-consumer-'));
   try {
-    const packageDirectory = join(directory, 'node_modules/@zukujs/core');
+    const packageDirectory = join(directory, 'node_modules/@zuku/core');
     mkdirSync(packageDirectory, { recursive: true });
     cpSync(join(root, 'dist'), join(packageDirectory, 'dist'), { recursive: true });
     cpSync(join(root, 'package.json'), join(packageDirectory, 'package.json'));
     writeFileSync(join(directory, 'consumer.mjs'), `
       import assert from 'node:assert/strict';
-      import { parseCommand, safeDiagnostic, IDENTITY } from '@zukujs/core';
-      import { commandHelp } from '@zukujs/core/command';
-      import { readableTrace } from '@zukujs/core/diagnostics';
-      import identity from '@zukujs/core/client-version.json' with { type: 'json' };
+      import { parseCommand, safeDiagnostic, IDENTITY } from '@zuku/core';
+      import { commandHelp } from '@zuku/core/command';
+      import { readableTrace } from '@zuku/core/diagnostics';
+      import identity from '@zuku/core/client-version.json' with { type: 'json' };
       assert.deepEqual(parseCommand('go("jump")'), {name: 'navigation.open', args: ['jump']});
       assert.equal(commandHelp('app')[0].name, 'app.status');
       assert.equal(safeDiagnostic('token=example'), '[redacted]');

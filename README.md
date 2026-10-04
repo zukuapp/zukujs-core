@@ -14,12 +14,12 @@
 <!-- markdownlint-enable MD033 MD041 -->
 <!-- END ZUKU OFFICIAL BRAND -->
 
-# @zukujs/core 27.0.1
+# @zuku/core 27.0.1
 
 A standalone ESM library for the ZukuJS command grammar and bounded diagnostic redaction. It has zero runtime dependencies. The command parser accepts registered commands and string arguments; it never evaluates JavaScript or provides DOM or network access.
 
 ```ts
-import { parseCommand, safeDiagnostic, readableTrace, debug } from '@zukujs/core';
+import { parseCommand, safeDiagnostic, readableTrace, debug } from '@zuku/core';
 
 parseCommand('go("jump")'); // { name: 'navigation.open', args: ['jump'] }
 safeDiagnostic('Cookie: a=1; b=2'); // '[redacted]'
@@ -27,7 +27,7 @@ safeDiagnostic('Cookie: a=1; b=2'); // '[redacted]'
 
 The entry points are `.`, `./command`, `./diagnostics`, and `./client-version.json`. See [docs/API.md](docs/API.md) for the full contract.
 
-Install a published release with `npm install @zukujs/core@27.0.1`. Package patch
+Install a published release with `npm install @zuku/core@27.0.1`. Package patch
 27.0.1 retains the ZukuJS 27.0.0 client identity and the existing command protocol;
 the package release version and framework identity are separate fields.
 

@@ -1,4 +1,4 @@
-# API (`@zukujs/core` 27.0.0)
+# API (`@zuku/core` 27.0.1)
 
 ESM only, no dependencies. Entrypoints: `.` (all), `./command`, `./diagnostics`, `./client-version.json`.
 

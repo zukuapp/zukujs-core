@@ -1,5 +1,5 @@
 {
-  "name": "@zukujs/core",
+  "name": "@zuku/core",
   "version": "27.0.1",
   "description": "Standalone ZukuJS command grammar and diagnostics redaction core. Zero dependencies.",
   "license": "UNLICENSED",
