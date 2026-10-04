@@ -4,5 +4,5 @@ export declare const IDENTITY: Readonly<{
     version: string;
     command_protocol: string;
 }>;
-export * from './command-language';
-export * from './diagnostics';
+export * from './command-language.js';
+export * from './diagnostics.js';

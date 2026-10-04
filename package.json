@@ -1,9 +1,8 @@
 {
   "name": "@zukujs/core",
-  "version": "27.0.0",
+  "version": "27.0.1",
   "description": "Standalone ZukuJS command grammar and diagnostics redaction core. Zero dependencies.",
   "license": "UNLICENSED",
-  "private": true,
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -24,8 +23,14 @@
     "./client-version.json": "./dist/client-version.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "docs/API.md",
+    "docs/branding/"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "bun scripts/build.ts",
     "test": "bun test",

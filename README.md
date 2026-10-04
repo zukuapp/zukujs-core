@@ -14,7 +14,7 @@
 <!-- markdownlint-enable MD033 MD041 -->
 <!-- END ZUKU OFFICIAL BRAND -->
 
-# @zukujs/core 27.0.0
+# @zukujs/core 27.0.1
 
 A standalone ESM library for the ZukuJS command grammar and bounded diagnostic redaction. It has zero runtime dependencies. The command parser accepts registered commands and string arguments; it never evaluates JavaScript or provides DOM or network access.
 
@@ -26,6 +26,10 @@ safeDiagnostic('Cookie: a=1; b=2'); // '[redacted]'
 ```
 
 The entry points are `.`, `./command`, `./diagnostics`, and `./client-version.json`. See [docs/API.md](docs/API.md) for the full contract.
+
+Install a published release with `npm install @zukujs/core@27.0.1`. Package patch
+27.0.1 retains the ZukuJS 27.0.0 client identity and the existing command protocol;
+the package release version and framework identity are separate fields.
 
 ## Identity
 
@@ -42,7 +46,7 @@ bun bench/bench.ts
 bun scripts/manifest.ts
 ```
 
-The build creates unminified browser-targeted ESM without source maps or timestamps. It copies the compiler-generated declaration snapshots in `types/` into `dist/`; changes to the public TypeScript API require regenerating those declarations before building. Runtime output is independent of Node and Bun APIs. Only `dist/` is selected for a potential package distribution; npm publication is disabled by `private: true`.
+The build creates unminified browser-targeted ESM without source maps or timestamps. It copies the compiler-generated declaration snapshots in `types/` into `dist/`; changes to the public TypeScript API require regenerating those declarations before building. Runtime output is independent of Node and Bun APIs. All runtime exports select `dist/`; the package also includes its README, API guide, and approved original logo assets. Source, tests, benchmarks, local state, and dependencies are excluded from the distribution whitelist.
 
 Tests cover parser boundaries, built exports, exact client identity projection, diagnostic bounds, accessors and Proxy traps, and differential comparison with the previous redactor. Regex lookbehind is excluded from the runtime source and output. Build reproducibility applies to the same Bun version.
 
@@ -50,7 +54,8 @@ The command registry freezes each metadata entry as well as the top-level map,
 so a consumer cannot relax the registered argument limits. A real Node.js ESM
 consumer test resolves every declared package export using only the distributed
 files. CI regenerates the declaration snapshots with TypeScript 5.9.3 and checks
-that browser output remains reproducible. The integrity manifest excludes Git
+that browser output remains reproducible. A NodeNext TypeScript consumer also
+checks the ESM declaration paths without relaxing module resolution. The integrity manifest excludes Git
 metadata, local task state and dependencies, and rejects symbolic links.
 
 이 모듈은 명령 문법과 진단 문자열을 처리하는 독립 라이브러리입니다. 프레임워크의
@@ -66,6 +71,6 @@ Diagnostic redaction is a heuristic. Unrecognized secrets in free text can remai
 
 This independent module was extracted from the platform-owned ZukuJS console implementation, then given standalone entry points, a public client identity projection, compiler-generated declarations, portable tests, and a redactor without lookbehind. It contains no Next.js implementation. The upstream framework's MIT license is separate and does not grant rights to this module. The package name identifies this standalone source; it does not alter the private application's existing dependency.
 
-**Public source visibility does not grant an additional software-use license.** This source retains `"license": "UNLICENSED"` and `"private": true`; no SOL, MIT, or other software license is granted by this repository. The package is not published to npm. Please contact the source owner for permission beyond rights available under applicable law and the hosting service's terms.
+**Public source visibility and npm distribution do not grant an additional software-use license.** This source retains `"license": "UNLICENSED"`; no SOL, MIT, or other software license is granted by this repository. The approved package release enables public distribution while preserving that rights declaration. Please contact the source owner for permission beyond rights available under applicable law and the hosting service's terms.
 
 The original 32-file source snapshot was verified against manifest SHA-256 `f66ef2ef8d869015b0bf84a8412db3a8c3d45013c8f2ef1e25cf541856931fa8`. Runtime code, tests, and declaration snapshots were preserved. Standalone package metadata and documentation were revised; this copy's `MANIFEST.sha256` records its current file hashes.

@@ -28,6 +28,8 @@ jobs:
           git diff --exit-code -- types dist src/client-version.json
       - name: Check grammar limits, diagnostic boundaries and real Node consumers
         run: bun test
+      - name: Check actual package declarations in a NodeNext TypeScript consumer
+        run: bun x --package typescript@5.9.3 tsc --strict --module NodeNext --moduleResolution NodeNext --target ES2022 --noEmit test/fixtures/consumer-types.mts
       - name: Verify recorded source integrity and metadata exclusion
         run: |
           bun scripts/manifest.ts

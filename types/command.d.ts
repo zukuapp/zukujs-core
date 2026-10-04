@@ -1,1 +1,1 @@
-export * from './command-language';
+export * from './command-language.js';
