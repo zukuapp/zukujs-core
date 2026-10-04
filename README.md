@@ -46,6 +46,18 @@ The build creates unminified browser-targeted ESM without source maps or timesta
 
 Tests cover parser boundaries, built exports, exact client identity projection, diagnostic bounds, accessors and Proxy traps, and differential comparison with the previous redactor. Regex lookbehind is excluded from the runtime source and output. Build reproducibility applies to the same Bun version.
 
+The command registry freezes each metadata entry as well as the top-level map,
+so a consumer cannot relax the registered argument limits. A real Node.js ESM
+consumer test resolves every declared package export using only the distributed
+files. CI regenerates the declaration snapshots with TypeScript 5.9.3 and checks
+that browser output remains reproducible. The integrity manifest excludes Git
+metadata, local task state and dependencies, and rejects symbolic links.
+
+이 모듈은 명령 문법과 진단 문자열을 처리하는 독립 라이브러리입니다. 프레임워크의
+JSX 컴파일·SSR·hydration·HMR 검증과 별도로, 실제 ESM 소비자·명령 인수 제한·
+오류 및 Proxy 경계·생성 선언 파일을 검사합니다. 이 저장소의 CI는 애플리케이션을
+배포하거나 npm 패키지를 공개하지 않습니다.
+
 ## Limits
 
 Diagnostic redaction is a heuristic. Unrecognized secrets in free text can remain visible, so callers must avoid logging secrets. Input is limited to 4,096 characters and output to 500; some repeated-token inputs can still take milliseconds. Error accessors are avoided, but a Proxy can run caller-supplied traps. Browser compatibility, mobile device behavior, and application performance need separate verification. The included benchmark measures these helpers and does not establish page startup or rendering performance.

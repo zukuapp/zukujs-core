@@ -6,6 +6,7 @@ ESM only, no dependencies. Entrypoints: `.` (all), `./command`, `./diagnostics`,
 - `parseCommand(source: unknown): ParsedCommand` - parses a fixed command grammar (never evaluates JavaScript). Source must be a string of at most 2048 chars. Arguments are JSON strings matching `[a-zA-Z.]*`, at most 64 chars. Throws `CommandError` (`code`: `INVALID_INPUT`, `COMMAND_SYNTAX`, `UNKNOWN_COMMAND`, `COMMAND_ARGUMENT`).
 - `commandHelp(namespace?: string)` - `{name, usage, description}[]`, optionally filtered.
 - `COMMANDS`, `COMMAND_PROTOCOL` (`zuku-command/1`), `CommandError`, types `CommandName`, `ParsedCommand`.
+- `COMMANDS` and every command metadata entry are frozen. Consumers cannot change argument limits or help metadata; generated declarations expose the same readonly boundary.
 - `VERSION`, `IDENTITY` - public projection `client-version.json` (`name`, `version`, `command_protocol` only). The authoritative `src/version.json` (which also carries upstream and internal protocol fields) is never edited and is not bundled, exported or shipped in `dist`; `scripts/build.ts` regenerates `src/client-version.json` from it.
 
 ## Diagnostics

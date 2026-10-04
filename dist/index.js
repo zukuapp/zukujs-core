@@ -8,14 +8,14 @@ var client_version_default = {
 // src/command-language.ts
 var COMMAND_PROTOCOL = client_version_default.command_protocol;
 var COMMANDS = Object.freeze({
-  "system.help": { usage: 'help(); / system.help("app")', summary: "명령과 네임스페이스 안내", args: 1 },
-  "system.version": { usage: "version();", summary: "ZukuJS와 명령 규격 버전", args: 0 },
-  "app.status": { usage: "status();", summary: "현재 화면·연결 상태", args: 0 },
-  "routes.list": { usage: "routes();", summary: "주요 화면 안내", args: 0 },
-  "navigation.open": { usage: 'go("jump"); / navigation.open("game")', summary: "등록된 화면으로 이동 · 기존 작품 탐색 별칭 지원", args: 1 },
-  "performance.snapshot": { usage: "perf();", summary: "이 탭의 렌더링 측정값", args: 0 },
-  "theme.current": { usage: "theme();", summary: "현재 화면 테마", args: 0 },
-  "console.clear": { usage: "clear();", summary: "ZukuJS 명령 기록 지우기", args: 0 }
+  "system.help": Object.freeze({ usage: 'help(); / system.help("app")', summary: "명령과 네임스페이스 안내", args: 1 }),
+  "system.version": Object.freeze({ usage: "version();", summary: "ZukuJS와 명령 규격 버전", args: 0 }),
+  "app.status": Object.freeze({ usage: "status();", summary: "현재 화면·연결 상태", args: 0 }),
+  "routes.list": Object.freeze({ usage: "routes();", summary: "주요 화면 안내", args: 0 }),
+  "navigation.open": Object.freeze({ usage: 'go("jump"); / navigation.open("game")', summary: "등록된 화면으로 이동 · 기존 작품 탐색 별칭 지원", args: 1 }),
+  "performance.snapshot": Object.freeze({ usage: "perf();", summary: "이 탭의 렌더링 측정값", args: 0 }),
+  "theme.current": Object.freeze({ usage: "theme();", summary: "현재 화면 테마", args: 0 }),
+  "console.clear": Object.freeze({ usage: "clear();", summary: "ZukuJS 명령 기록 지우기", args: 0 })
 });
 var aliases = Object.freeze({ help: "system.help", version: "system.version", status: "app.status", routes: "routes.list", go: "navigation.open", perf: "performance.snapshot", theme: "theme.current", clear: "console.clear" });
 

@@ -1,6 +1,6 @@
 import { test, expect } from 'bun:test';
 import { readFileSync, existsSync } from 'node:fs';
-import { parseCommand, commandHelp, CommandError, COMMAND_PROTOCOL, VERSION, IDENTITY } from '../src/index';
+import { parseCommand, commandHelp, CommandError, COMMANDS, COMMAND_PROTOCOL, VERSION, IDENTITY } from '../src/index';
 import * as dist from '../dist/index.js';
 
 test('parse aliases and namespaced', () => {
@@ -12,6 +12,16 @@ test('rejects javascript and bad args', () => {
   for (const s of ['alert(1)', 'help(1)', 'help("a b")', 'go("a","b")', 'constructor()', '__proto__()', 'help(); alert(1)', 'x'.repeat(3000)])
     expect(() => parseCommand(s)).toThrow(CommandError);
   expect(() => parseCommand(5)).toThrow(CommandError);
+});
+test('consumer mutation cannot relax registered command argument limits', () => {
+  for (const registry of [COMMANDS, dist.COMMANDS]) {
+    expect(Object.isFrozen(registry)).toBe(true);
+    for (const metadata of Object.values(registry)) expect(Object.isFrozen(metadata)).toBe(true);
+    expect(Reflect.set(registry['navigation.open'], 'args', 2)).toBe(false);
+    expect(Reflect.set(registry['navigation.open'], 'summary', 'changed')).toBe(false);
+  }
+  expect(() => parseCommand('go("jump","app")')).toThrow(CommandError);
+  expect(() => dist.parseCommand('go("jump","app")')).toThrow(dist.CommandError);
 });
 test('commandHelp filtering', () => {
   expect(commandHelp('app').map(c => c.name)).toEqual(['app.status']);
