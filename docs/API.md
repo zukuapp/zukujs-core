@@ -1,4 +1,4 @@
-# API (`@zuku/core` 27.0.1)
+# API (`@zuku/core` v27.26102701)
 
 ESM only, no dependencies. Entrypoints: `.` (all), `./command`, `./diagnostics`, `./client-version.json`.
 
@@ -20,4 +20,8 @@ ESM only, no dependencies. Entrypoints: `.` (all), `./command`, `./diagnostics`,
 Keys containing token/password/passwd/pwd/secret/api-key/credential/session(id)/sid (bare, double/single quoted JSON, and backslash-escaped JSON), including `x-api-key`, `access_token`, `refresh_token`, `session_token`, camelCase variants. `Authorization`, `Proxy-Authorization`, `Cookie`, `Set-Cookie` headers: whole value through end of line (all cookie parts and attributes). Bearer/Basic credentials, known token prefixes (`sk-`, `ghp_`, `github_pat_`, `shz_*`, `xox*`, `AKIA`), JWTs. URLs become `[app resource]`. Paths under `/root /home /srv /etc /var /tmp /usr /opt /mnt /proc /run /app /workspace(s) /data /snapshot /Users /private /volumeN /build /code /github`, `~/`, Windows drive and UNC paths become `[private path]`.
 
 ## Limits
-Heuristic, pattern-based: it cannot recognize secrets with no key, known prefix, or scheme in free text, and paths with spaces are only redacted up to the first space. Not a substitute for not logging secrets. Pathological inputs (e.g. 4000 chars of repeated `token`) cost on the order of 10 ms because of regex backtracking; bounded by the 4096-char input cut. Removing lookbehind was verified only on Bun's JavaScriptCore; no mobile engine (including Hermes) was run.
+- Redaction is pattern-based. It does not recognize secrets in free text that have no key, known prefix, or scheme.
+- Paths with spaces are redacted up to the first space.
+- Callers must not log secrets.
+- Pathological inputs (e.g. 4000 chars of repeated `token`) take on the order of 10 ms because of regex backtracking. The 4096-char input cut bounds this cost.
+- CI runs the lookbehind-free redactor on Bun 1.4.0 (JavaScriptCore) and imports the package in Node.js 24. No mobile engine (including Hermes) runs in CI.
